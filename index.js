@@ -7,12 +7,10 @@ let hasMicPermission = false
 const checkMicPermission = () => {
   navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
-      // Permission has been granted
       hasMicPermission = true
       stream.getTracks().forEach(track => track.stop())
     })
     .catch(error => {
-      // Permission has not been granted
       hasMicPermission = false
     })
 }
@@ -27,7 +25,6 @@ window.addEventListener('keydown', event => {
       if (hasMicPermission) {
         recognition.start()
       } else {
-        // Prompt the user for permission
         navigator.mediaDevices.getUserMedia({ audio: true })
           .then(stream => {
             hasMicPermission = true
